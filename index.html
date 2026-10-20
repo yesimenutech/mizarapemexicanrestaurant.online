@@ -1106,227 +1106,232 @@
     </footer>
 
     <!-- Logic Engine & Event Handlers -->
-    <script>
-        // Automatic Year Calculation for Menutech
-        document.addEventListener('DOMContentLoaded', () => {
-            const yearSpan = document.getElementById('copyright-year');
-            if (yearSpan) {
-                yearSpan.textContent = new Date().getFullYear();
+<script>
+    // Automatic Year Calculation for Menutech
+    document.addEventListener('DOMContentLoaded', () => {
+        const yearSpan = document.getElementById('copyright-year');
+        if (yearSpan) {
+            yearSpan.textContent = new Date().getFullYear();
+        }
+    });
+
+    // Cloudinary URL Optimizer
+    const optimizeCloudinaryUrl = (url, options = {}) => {
+        if (!url || typeof url !== 'string' || !url.includes('res.cloudinary.com')) return url;
+        const [baseUrl, hash] = url.split('#');
+        if (!baseUrl.includes('/upload/')) return url;
+        const parts = baseUrl.split('/upload/');
+
+        let pathSegments = parts[1].split('/');
+        if (pathSegments.length > 1) {
+            const firstSegment = pathSegments[0];
+            const isVersion = /^v\d+\$/.test(firstSegment);
+            const isTransformation = !isVersion && (firstSegment.includes('_') || firstSegment.includes(','));
+            if (isTransformation) pathSegments.shift();
+        }
+        const cleanPath = pathSegments.join('/');
+
+        let transformations = ['f_auto', 'q_auto:eco', 'dpr_auto'];
+        if (options.width) transformations.push(`w_${options.width}`);
+        if (options.height) transformations.push(`h_${options.height}`);
+        if (options.crop) transformations.push(`c_${options.crop}`);
+
+        const optimizedUrl = `${parts[0]}/upload/${transformations.join(',')}/${cleanPath}`;
+        return hash ? `${optimizedUrl}#${hash}` : optimizedUrl;
+    };
+
+    const SOCIAL_SVG = {
+        facebook: `<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.85C10.44 7.34 11.93 5.96 14.22 5.96C15.31 5.96 16.45 6.15 16.45 6.15V8.62H15.19C13.95 8.62 13.56 9.39 13.56 10.18V12.06H16.34L15.89 14.96H13.56V21.96A10 10 0 0 0 22 12.06C22 6.53 17.5 2.04 12 2.04Z"/></svg>`,
+        instagram: `<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>`,
+        tiktok: `<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>`
+    };
+
+    let currentLang = 'en';
+
+    function switchLanguage(lang) {
+        currentLang = lang;
+
+        // Toggle language buttons
+        const btnEs = document.getElementById('btn-lang-es');
+        const btnEn = document.getElementById('btn-lang-en');
+        if (lang === 'es') {
+            btnEs.classList.add('active');
+            btnEn.classList.remove('active');
+        } else {
+            btnEn.classList.add('active');
+            btnEs.classList.remove('active');
+        }
+
+        // Translate elements
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (TRANSLATIONS[key] && TRANSLATIONS[key][lang]) {
+                if (el.tagName === 'P' && TRANSLATIONS[key][lang].includes('<br>')) {
+                    el.innerHTML = TRANSLATIONS[key][lang];
+                } else {
+                    el.textContent = TRANSLATIONS[key][lang];
+                }
             }
         });
 
-        // Cloudinary URL Optimizer
-        const optimizeCloudinaryUrl = (url, options = {}) => {
-            if (!url || typeof url !== 'string' || !url.includes('res.cloudinary.com')) return url;
-            const [baseUrl, hash] = url.split('#');
-            if (!baseUrl.includes('/upload/')) return url;
-            const parts = baseUrl.split('/upload/');
+        // Re-renderizar UI para actualizar las descripciones de la galería al idioma activo
+        if (window.MENU_TECH_STATE) {
+            renderUI(window.MENU_TECH_STATE);
+        }
+    }
 
-            let pathSegments = parts[1].split('/');
-            if (pathSegments.length > 1) {
-                const firstSegment = pathSegments[0];
-                const isVersion = /^v\d+$/.test(firstSegment);
-                const isTransformation = !isVersion && (firstSegment.includes('_') || firstSegment.includes(','));
-                if (isTransformation) pathSegments.shift();
-            }
-            const cleanPath = pathSegments.join('/');
+    // Extractor de títulos de archivo de imagen
+    function formatImageCaption(url) {
+        try {
+            const fileName = url.substring(url.lastIndexOf('/') + 1).split('.')[0];
+            const cleanName = fileName.replace(/_[a-z0-9]+\$/i, '').replace(/_/g, ' ');
+            return cleanName.charAt(0).toUpperCase() + cleanName.slice(1);
+        } catch(e) {
+            return "Mi Zarape Specialty";
+        }
+    }
 
-            let transformations = ['f_auto', 'q_auto:eco', 'dpr_auto'];
-            if (options.width) transformations.push(`w_${options.width}`);
-            if (options.height) transformations.push(`h_${options.height}`);
-            if (options.crop) transformations.push(`c_${options.crop}`);
+    function renderUI(data) {
+        if (!data) return;
 
-            const optimizedUrl = `${parts[0]}/upload/${transformations.join(',')}/${cleanPath}`;
-            return hash ? `${optimizedUrl}#${hash}` : optimizedUrl;
-        };
-
-        const SOCIAL_SVG = {
-            facebook: `<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.85C10.44 7.34 11.93 5.96 14.22 5.96C15.31 5.96 16.45 6.15 16.45 6.15V8.62H15.19C13.95 8.62 13.56 9.39 13.56 10.18V12.06H16.34L15.89 14.96H13.56V21.96A10 10 0 0 0 22 12.06C22 6.53 17.5 2.04 12 2.04Z"/></svg>`,
-            instagram: `<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>`,
-            tiktok: `<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>`
-        };
-
-        let currentLang = 'en';
-
-        function switchLanguage(lang) {
-            currentLang = lang;
-
-            // Toggle language buttons
-            const btnEs = document.getElementById('btn-lang-es');
-            const btnEn = document.getElementById('btn-lang-en');
-            if (lang === 'es') {
-                btnEs.classList.add('active');
-                btnEn.classList.remove('active');
-            } else {
-                btnEn.classList.add('active');
-                btnEs.classList.remove('active');
-            }
-
-            // Translate elements
-            document.querySelectorAll('[data-i18n]').forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                if (TRANSLATIONS[key] && TRANSLATIONS[key][lang]) {
-                    if (el.tagName === 'P' && TRANSLATIONS[key][lang].includes('<br>')) {
-                        el.innerHTML = TRANSLATIONS[key][lang];
-                    } else {
-                        el.textContent = TRANSLATIONS[key][lang];
-                    }
-                }
-            });
+        // Title & Brand Name
+        if (data.title) {
+            const b = document.getElementById('nav-brand');
+            if (b) b.textContent = data.title;
         }
 
-        // Clean image filename title extractor for gallery overlays
-        function formatImageCaption(url) {
-            try {
-                const fileName = url.substring(url.lastIndexOf('/') + 1).split('.')[0];
-                const cleanName = fileName.replace(/_[a-z0-9]+$/i, '').replace(/_/g, ' ');
-                return cleanName.charAt(0).toUpperCase() + cleanName.slice(1);
-            } catch(e) {
-                return "Mi Zarape Specialty";
+        // Logos
+        if (data.logoImg) {
+            const optLogo = optimizeCloudinaryUrl(data.logoImg, { width: 300 });
+            const navL = document.getElementById('nav-logo');
+            const heroL = document.getElementById('hero-logo');
+            const footerL = document.getElementById('footer-logo');
+
+            if (navL) navL.src = optLogo;
+            if (heroL) heroL.src = optLogo;
+            if (footerL) {
+                footerL.src = optLogo;
+                footerL.style.filter = "none";
             }
         }
 
-        function renderUI(data) {
-            if (!data) return;
+        // Hero Image Background
+        if (data.heroImg) {
+            const hero = document.getElementById('hero-section');
+            if (hero) hero.style.backgroundImage = `url('${optimizeCloudinaryUrl(data.heroImg, { width: 1600 })}')`;
+        }
 
-            // Title & Brand Name
-            if (data.title) {
-                const b = document.getElementById('nav-brand');
-                if (b) b.textContent = data.title;
-            }
+        // About Images
+        if (data.aboutImg1) {
+            const a1 = document.getElementById('about-img-1');
+            if (a1) a1.src = optimizeCloudinaryUrl(data.aboutImg1, { width: 700 });
+        }
+        if (data.aboutImg2) {
+            const a2 = document.getElementById('about-img-2');
+            if (a2) a2.src = optimizeCloudinaryUrl(data.aboutImg2, { width: 700 });
+        }
 
-            // Logos (ENSURE FOOTER LOGO HAS NO FILTER EFFECT)
-            if (data.logoImg) {
-                const optLogo = optimizeCloudinaryUrl(data.logoImg, { width: 300 });
-                const navL = document.getElementById('nav-logo');
-                const heroL = document.getElementById('hero-logo');
-                const footerL = document.getElementById('footer-logo');
+        // Address & Hours Synchronizer
+        if (data.info) {
+            const addressText = data.info.address || '';
+            const phoneText = data.info.phone || '';
+            const hoursText = (data.info.hours || '').replace(/\n/g, '<br>');
 
-                if (navL) navL.src = optLogo;
-                if (heroL) heroL.src = optLogo;
-                if (footerL) {
-                    footerL.src = optLogo;
-                    footerL.style.filter = "none";
-                }
-            }
+            const heroAddr = document.getElementById('hero-address');
+            const infoAddr = document.getElementById('info-address');
+            const footAddr = document.getElementById('footer-address');
+            if (heroAddr) heroAddr.textContent = addressText;
+            if (infoAddr) infoAddr.textContent = addressText;
+            if (footAddr) footAddr.textContent = addressText;
 
-            // Hero Image Background
-            if (data.heroImg) {
-                const hero = document.getElementById('hero-section');
-                if (hero) hero.style.backgroundImage = `url('${optimizeCloudinaryUrl(data.heroImg, { width: 1600 })}')`;
-            }
+            const infoPhone = document.getElementById('info-phone');
+            const footPhone = document.getElementById('footer-phone');
+            if (infoPhone) infoPhone.textContent = phoneText;
+            if (footPhone) footPhone.textContent = 'Phone: ' + phoneText;
 
-            // About Images Stagger
-            if (data.aboutImg1) {
-                const a1 = document.getElementById('about-img-1');
-                if (a1) a1.src = optimizeCloudinaryUrl(data.aboutImg1, { width: 700 });
-            }
-            if (data.aboutImg2) {
-                const a2 = document.getElementById('about-img-2');
-                if (a2) a2.src = optimizeCloudinaryUrl(data.aboutImg2, { width: 700 });
-            }
+            const infoHours = document.getElementById('info-hours');
+            const footHours = document.getElementById('footer-hours');
+            if (infoHours) infoHours.innerHTML = hoursText;
+            if (footHours) footHours.innerHTML = hoursText;
+        }
 
-            // Address & Hours Synchronizer
-            if (data.info) {
-                const addressText = data.info.address || '';
-                const phoneText = data.info.phone || '';
-                const hoursText = (data.info.hours || '').replace(/\n/g, '<br>');
+        // Renderizado de Galería con frase genérica para las 3 imágenes específicas
+        if (data.gallery && Array.isArray(data.gallery)) {
+            const galContainer = document.getElementById('gallery-container');
+            const specialImages = [
+                '2023-06-08_2_prhdww.jpg',
+                '2023-06-08_1_cwwlxd.jpg',
+                '2023-02-11_l3pcj5.jpg'
+            ];
 
-                const heroAddr = document.getElementById('hero-address');
-                const infoAddr = document.getElementById('info-address');
-                const footAddr = document.getElementById('footer-address');
-                if (heroAddr) heroAddr.textContent = addressText;
-                if (infoAddr) infoAddr.textContent = addressText;
-                if (footAddr) footAddr.textContent = addressText;
+            if (galContainer) {
+                galContainer.innerHTML = data.gallery.map(imgUrl => {
+                    const isSpecial = specialImages.some(filename => imgUrl.includes(filename));
+                    const captionText = isSpecial 
+                        ? (currentLang === 'es' ? 'Los favoritos de la casa' : 'House Favorites')
+                        : formatImageCaption(imgUrl);
 
-                const infoPhone = document.getElementById('info-phone');
-                const footPhone = document.getElementById('footer-phone');
-                if (infoPhone) infoPhone.textContent = phoneText;
-                if (footPhone) footPhone.textContent = 'Phone: ' + phoneText;
-
-                const infoHours = document.getElementById('info-hours');
-                const footHours = document.getElementById('footer-hours');
-                if (infoHours) infoHours.innerHTML = hoursText;
-                if (footHours) footHours.innerHTML = hoursText;
-            }
-           
-            
- // RENDER ALL 31 GALLERY IMAGES (RESTORED COMPLETE GALLERY)
-            if (data.gallery && Array.isArray(data.gallery)) {
-                const galContainer = document.getElementById('gallery-container');
-                if (galContainer) {
-                    galContainer.innerHTML = data.gallery.map(imgUrl => `
+                    return `
                         <div class="gallery-item">
                             <img src="${optimizeCloudinaryUrl(imgUrl, { width: 600 })}" loading="lazy" alt="Mi Zarape Dish">
                             <div class="gallery-overlay">
-                                <span class="gallery-caption">${
-                                    [
-                                        '2023-06-08_2_prhdww.jpg',
-                                        '2023-06-08_1_cwwlxd.jpg',
-                                        '2023-02-11_l3pcj5.jpg'
-                                    ].some(filename => imgUrl.includes(filename))
-                                        ? (currentLanguage === 'es' ? 'Los favoritos de la casa' : 'House Favorites')
-                                        : formatImageCaption(imgUrl)
-                                }</span>
+                                <span class="gallery-caption">${captionText}</span>
                             </div>
                         </div>
-                    `).join('');
-                }
+                    `;
+                }).join('');
             }
-
-
-            // Social Networks
-            if (data.socials && Array.isArray(data.socials)) {
-                const socContainer = document.getElementById('social-icons');
-                if (socContainer) {
-                    socContainer.innerHTML = data.socials.map(s => {
-                        let plat = s.platform.toLowerCase();
-                        if (s.url.includes('tiktok')) plat = 'tiktok';
-                        return `
-                            <a href="${s.url}" target="_blank" rel="noopener" class="social-icon-btn" aria-label="${plat}">
-                                ${SOCIAL_SVG[plat] || SOCIAL_SVG.facebook}
-                            </a>
-                        `;
-                    }).join('');
-                }
-            }
-
-            // Apply selected language
-            if (data.lang) switchLanguage(data.lang);
         }
 
-        // Initialize Page
-        document.addEventListener('DOMContentLoaded', () => {
-            if (window.MENU_TECH_STATE) {
-                renderUI(window.MENU_TECH_STATE);
+        // Social Networks
+        if (data.socials && Array.isArray(data.socials)) {
+            const socContainer = document.getElementById('social-icons');
+            if (socContainer) {
+                socContainer.innerHTML = data.socials.map(s => {
+                    let plat = s.platform.toLowerCase();
+                    if (s.url.includes('tiktok')) plat = 'tiktok';
+                    return `
+                        <a href="${s.url}" target="_blank" rel="noopener" class="social-icon-btn" aria-label="${plat}">
+                            ${SOCIAL_SVG[plat] || SOCIAL_SVG.facebook}
+                        </a>
+                    `;
+                }).join('');
             }
+        }
+    }
 
-            // Mobile Nav Toggle
-            const toggler = document.getElementById('navbar-toggler');
-            const navMenu = document.getElementById('nav-menu');
-            if (toggler && navMenu) {
-                toggler.addEventListener('click', () => {
-                    navMenu.classList.toggle('active');
-                });
-            }
+    // Initialize Page
+    document.addEventListener('DOMContentLoaded', () => {
+        if (window.MENU_TECH_STATE) {
+            renderUI(window.MENU_TECH_STATE);
+        }
 
-            // Navbar Scroll Effect
-            const nav = id = document.getElementById('main-navbar');
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    nav.classList.add('scrolled');
-                } else {
-                    nav.classList.remove('scrolled');
-                }
+        // Mobile Nav Toggle
+        const toggler = document.getElementById('navbar-toggler');
+        const navMenu = document.getElementById('nav-menu');
+        if (toggler && navMenu) {
+            toggler.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
             });
-        });
+        }
 
-        // Listen for live updates from Menutech Editor
-        window.addEventListener('message', (event) => {
-            if (event.data && event.data.type === 'UPDATE_CONTENT') {
-                renderUI(event.data.data);
+        // Navbar Scroll Effect
+        const nav = document.getElementById('main-navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
             }
         });
-    </script>
+    });
+
+    // Listen for live updates from Menutech Editor
+    window.addEventListener('message', (event) => {
+        if (event.data && event.data.type === 'UPDATE_CONTENT') {
+            renderUI(event.data.data);
+        }
+    });
+</script>
 </body>
 </html>
