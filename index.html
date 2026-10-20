@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Mi Zarape - Authentic Mexican Cuisine & Ordering in Saline, MI. Fresh ingredients, traditional recipes, and bold flavors.">
+    <title>Mi Zarape – Authentic Mexican Cuisine</title>
+    <link rel="icon" id="favicon" type="image/png" href="https://res.cloudinary.com/dzklt0a5u/image/upload/f_auto,q_auto:eco,dpr_auto,w_250/v1792510028/LOGOMIZARAPE_dq4lfl.png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..800;1,9..144,400..800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* Branding Palette: Mexican Gastronomy High-End Studio */
+            --color-terracotta: #B83A1B;
+            --color-terracotta-dark: #8C2911;
+            --color-agave: #2A5A43;
+            --color-agave-light: #3D7B5C;
+            --color-maize: #E5A000;
+            --color-maize-soft: #FFF5D6;
+            --color-cocoa: #231A16;
+            --color-sand: #FBF8F3;
+            --color-sand-card: #F4EFE6;
+            --color-white: #FFFFFF;
+            --color-text-muted: #6B5E57;
+
+            /* Typography */
+            --font-display: 'Fraunces', Georgia, serif;
+            --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+
+            /* Visual Architecture */
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 28px;
+            --shadow-soft: 0 12px 35px rgba(35, 26, 22, 0.06);
+            --shadow-hover: 0 20px 45px rgba(35, 26, 22, 0.12);
+            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            font-size: 16px;
+            line-height: 1.65;
+            color: var(--color-cocoa);
+            background-color: var(--color-sand);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Subtle Pattern Mesh */
+        .bg-pattern {
+            background-image: radial-gradient(rgba(184, 58, 27, 0.08) 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+
+        .container {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Top Mexican Artisanal Accent Ribbon */
+        .top-artisan-ribbon {
+            height: 5px;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1002;
+            background: linear-gradient(90deg, 
+                var(--color-agave) 0%, 
+                var(--color-agave) 33%, 
+                var(--color-maize) 33%, 
+                var(--color-maize) 66%, 
+                var(--color-terracotta) 66%, 
+                var(--color-terracotta) 100%
+            );
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 5px;
+            left: 0;
+            right: 0;
+            background-color: rgba(251, 248, 243, 0.92);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            z-index: 1000;
+            padding: 16px 0;
+            border-bottom: 1px solid rgba(35, 26, 22, 0.06);
+            transition: var(--transition-smooth);
+        }
+
+        .navbar.scrolled {
+            padding: 12px 0;
+            background-color: rgba(255, 255, 255, 0.96);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: var(--font-display);
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--color-cocoa);
+            letter-spacing: -0.5px;
+        }
+
+        .navbar-brand img {
+            height: 42px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 36px;
+            align-items: center;
+        }
+
+        .nav-link {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: var(--color-cocoa);
+            position: relative;
+            padding: 4px 0;
+            transition: var(--transition-smooth);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--color-terracotta);
+            transition: var(--transition-smooth);
+            border-radius: 2px;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--color-terracotta);
+        }
+
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* Language Toggle Switch */
+        .lang-switch {
+            display: inline-flex;
+            align-items: center;
+            background: var(--color-sand-card);
+            padding: 4px 6px;
+            border-radius: 30px;
+            border: 1px solid rgba(35, 26, 22, 0.08);
+            gap: 4px;
+        }
+
+        .lang-btn {
+            padding: 4px 12px;
+            font-size: 12px;
+            font-weight: 700;
+            border-radius: 20px;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            color: var(--color-text-muted);
+            transition: var(--transition-smooth);
+        }
+
+        .lang-btn.active {
+            background-color: var(--color-terracotta);
+            color: var(--color-white);
+            box-shadow: 0 2px 8px rgba(184, 58, 27, 0.3);
+        }
+
+        .nav-cta-btn {
+            background-color: var(--color-terracotta);
+            color: var(--color-white);
+            padding: 10px 22px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition-smooth);
+            box-shadow: 0 4px 12px rgba(184, 58, 27, 0.25);
+        }
+
+        .nav-cta-btn:hover {
+            background-color: var(--color-terracotta-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(184, 58, 27, 0.35);
+        }
+
+        .navbar-toggler {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 6px;
+        }
+
+        .toggler-icon {
+            width: 26px;
+            height: 2px;
+            background-color: var(--color-cocoa);
+            border-radius: 2px;
+            transition: var(--transition-smooth);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 92vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-size: cover;
+            background-position: center;
+            padding: 140px 0 80px;
+            background-color: var(--color-cocoa);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, rgba(35, 26, 22, 0.55) 0%, rgba(35, 26, 22, 0.88) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: var(--color-white);
+            max-width: 860px;
+            margin: 0 auto;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 18px;
+            background: rgba(255, 245, 214, 0.15);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(229, 160, 0, 0.4);
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--color-maize);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+
+        .hero-logo-wrapper {
+            margin-bottom: 28px;
+        }
+
+        .hero-logo {
+            max-height: 150px;
+            width: auto;
+            margin: 0 auto;
+            filter: drop-shadow(0 10px 25px rgba(0,0,0,0.4));
+        }
+
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(42px, 6vw, 76px);
+            font-weight: 600;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+            color: #FAF6EE;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(17px, 2.2vw, 22px);
+            font-weight: 300;
+            color: #E2D9CC;
+            margin-bottom: 40px;
+            max-width: 680px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 18px;
+            justify-content: center;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-bottom: 36px;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: linear-gradient(135deg, var(--color-terracotta) 0%, #D84315 100%);
+            color: var(--color-white);
+            padding: 16px 38px;
+            border-radius: 40px;
+            font-size: 15px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            transition: var(--transition-smooth);
+            box-shadow: 0 10px 28px rgba(184, 58, 27, 0.4);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 14px 34px rgba(184, 58, 27, 0.55);
+            background: linear-gradient(135deg, #C63412 0%, var(--color-terracotta-dark) 100%);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(8px);
+            color: var(--color-white);
+            padding: 16px 34px;
+            border-radius: 40px;
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: var(--transition-smooth);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.22);
+            transform: translateY(-3px);
+            border-color: var(--color-white);
+        }
+
+        .hero-address-bar {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.85);
+            background: rgba(0, 0, 0, 0.35);
+            padding: 10px 22px;
+            border-radius: 30px;
+            backdrop-filter: blur(6px);
+        }
+
+        /* Section Framing */
+        .section-padding {
+            padding: 110px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 720px;
+            margin: 0 auto 64px;
+        }
+
+        .section-tag {
+            display: inline-block;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            color: var(--color-terracotta);
+            margin-bottom: 12px;
+            position: relative;
+        }
+
+        .section-tag::before, .section-tag::after {
+            content: '•';
+            margin: 0 8px;
+            color: var(--color-maize);
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(34px, 4vw, 50px);
+            font-weight: 600;
+            color: var(--color-cocoa);
+            line-height: 1.15;
+            letter-spacing: -0.5px;
+        }
+
+        /* About Us - Studio Layout */
+        .about-section {
+            background-color: var(--color-sand);
+            position: relative;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 70px;
+            align-items: center;
+        }
+
+        .about-card {
+            background: var(--color-white);
+            padding: 50px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-soft);
+            border: 1px solid rgba(35, 26, 22, 0.05);
+            position: relative;
+        }
+
+        .about-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 40px;
+            width: 60px;
+            height: 4px;
+            background-color: var(--color-terracotta);
+            border-radius: 0 0 4px 4px;
+        }
+
+        .about-card p {
+            color: var(--color-text-muted);
+            font-size: 17px;
+            line-height: 1.8;
+            margin-bottom: 22px;
+        }
+
+        .about-card p:last-child {
+            margin-bottom: 0;
+        }
+
+        .about-media-wrapper {
+            position: relative;
+        }
+
+        .about-img-stagger {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            position: relative;
+        }
+
+        .about-img-1 {
+            grid-column: 1 / 10;
+            grid-row: 1;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-soft);
+            height: 380px;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .about-img-2 {
+            grid-column: 4 / 13;
+            grid-row: 1;
+            margin-top: 90px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-hover);
+            height: 340px;
+            object-fit: cover;
+            width: 100%;
+            border: 6px solid var(--color-sand);
+            z-index: 2;
+        }
+
+        .about-badge-floating {
+            position: absolute;
+            bottom: -20px;
+            left: 20px;
+            background: var(--color-agave);
+            color: var(--color-white);
+            padding: 18px 24px;
+            border-radius: var(--radius-md);
+            z-index: 3;
+            box-shadow: var(--shadow-soft);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .about-badge-floating svg {
+            width: 32px;
+            height: 32px;
+            color: var(--color-maize);
+        }
+
+        /* Gallery Section - Complete 31 Photos Masonry Grid */
+        .gallery-section {
+            background-color: var(--color-white);
+            position: relative;
+        }
+
+        .gallery-masonry {
+            column-count: 4;
+            column-gap: 20px;
+        }
+
+        .gallery-item {
+            break-inside: avoid;
+            margin-bottom: 20px;
+            position: relative;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            background-color: var(--color-sand-card);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+            transition: var(--transition-smooth);
+            cursor: pointer;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.06);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(35, 26, 22, 0.75) 0%, transparent 60%);
+            opacity: 0;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: flex-end;
+            padding: 20px;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-caption {
+            color: var(--color-white);
+            font-family: var(--font-display);
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        /* Info & Contact Section */
+        .info-section {
+            background-color: var(--color-sand);
+        }
+
+        .info-card-container {
+            background: var(--color-white);
+            border-radius: var(--radius-lg);
+            padding: 64px 48px;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid rgba(35, 26, 22, 0.05);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 36px;
+        }
+
+        .info-box {
+            text-align: center;
+            padding: 36px 24px;
+            background: var(--color-sand);
+            border-radius: var(--radius-md);
+            transition: var(--transition-smooth);
+            border: 1px solid rgba(35, 26, 22, 0.03);
+        }
+
+        .info-box:hover {
+            transform: translateY(-5px);
+            background: var(--color-maize-soft);
+            border-color: rgba(229, 160, 0, 0.3);
+        }
+
+        .info-icon-wrapper {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            background: var(--color-white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-terracotta);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+        }
+
+        .info-box h3 {
+            font-family: var(--font-display);
+            font-size: 22px;
+            color: var(--color-cocoa);
+            margin-bottom: 12px;
+        }
+
+        .info-box p {
+            color: var(--color-text-muted);
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        /* Footer - Clean, Natural Logo, Dynamic Copyright */
+        .site-footer {
+            background-color: var(--color-cocoa);
+            color: #D1C7BD;
+            padding: 80px 0 36px;
+            position: relative;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 60px;
+            padding-bottom: 50px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .footer-brand-col img {
+            max-height: 90px;
+            width: auto;
+            margin-bottom: 20px;
+            /* STRICT INSTRUCTION: NO FILTER ON FOOTER LOGO */
+            filter: none !important;
+            opacity: 1 !important;
+        }
+
+        .footer-brand-col p {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #A89B90;
+            max-width: 320px;
+        }
+
+        .footer-title {
+            font-family: var(--font-display);
+            font-size: 20px;
+            color: var(--color-white);
+            margin-bottom: 22px;
+            position: relative;
+            padding-bottom: 8px;
+        }
+
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background-color: var(--color-maize);
+        }
+
+        .footer-info-text {
+            font-size: 15px;
+            line-height: 1.8;
+            color: #C0B4A8;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 14px;
+            margin-top: 20px;
+        }
+
+        .social-icon-btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-white);
+            transition: var(--transition-smooth);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .social-icon-btn:hover {
+            background-color: var(--color-terracotta);
+            color: var(--color-white);
+            transform: translateY(-3px);
+            border-color: var(--color-terracotta);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            font-size: 14px;
+            color: #8C7F74;
+        }
+
+        .footer-bottom a {
+            color: var(--color-maize);
+            font-weight: 700;
+            transition: var(--transition-smooth);
+        }
+
+        .footer-bottom a:hover {
+            color: var(--color-white);
+            text-decoration: underline;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 1024px) {
+            .gallery-masonry { column-count: 3; }
+            .about-grid { grid-template-columns: 1fr; gap: 50px; }
+            .about-img-2 { margin-top: 40px; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .gallery-masonry { column-count: 2; }
+            .info-grid { grid-template-columns: 1fr; gap: 20px; }
+            .info-card-container { padding: 36px 20px; }
+            .footer-grid { grid-template-columns: 1fr; gap: 36px; }
+            
+            .navbar-toggler { display: flex; }
+            .nav-menu {
+                position: fixed;
+                top: 60px;
+                left: 0;
+                right: 0;
+                background-color: var(--color-white);
+                flex-direction: column;
+                padding: 30px;
+                gap: 20px;
+                box-shadow: var(--shadow-hover);
+                transform: translateY(-150%);
+                opacity: 0;
+                visibility: hidden;
+                transition: var(--transition-smooth);
+            }
+
+            .nav-menu.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-masonry { column-count: 1; }
+            .hero-actions { flex-direction: column; width: 100%; }
+            .btn-primary, .btn-secondary { width: 100%; }
+        }
+
+        /* Hidden logic for Menutech SDK widgets */
+        .menutech-engine-wrapper {
+            display: none !important;
+        }
+    </style>
+
+    <!-- Embedded State -->
+    <script>
+        window.MENU_TECH_STATE = {
+            "cuid":"#",
+            "info":{
+                "hours":"Monday – Thursday: 11:00 AM – 10:00 PM\nFriday – Saturday: 11:00 AM – 10:30 PM\nSunday: 11:00 AM – 9:30 PM",
+                "phone":"734-470-6638",
+                "address":"7025 E Michigan Ave, Saline, MI, 48176, United States"
+            },
+            "lang":"en",
+            "ruid":"#",
+            "title":"Mi Zarape",
+            "titles":{
+                "info-title":"Information",
+                "about-title":"We are Mi Zarape",
+                "gallery-title":"Delicious Mexican Food",
+                "info-subtitle":"Visit Us",
+                "about-subtitle":"About Us",
+                "gallery-subtitle":"Love At First Bite"
+            },
+            "contact":{
+                "hours":"Monday – Thursday: 11:00 AM – 10:00 PM  Friday – Saturday: 11:00 AM – 10:30 PM  Sunday: 11:00 AM – 9:30 PM",
+                "phone":"734-470-6638",
+                "address":"7025 E Michigan Ave, Saline, MI, 48176, United States"
+            },
+            /* RESTORED ALL 31 GALLERY PHOTOS */
+            "gallery":[
+                "https://res.cloudinary.com/dzklt0a5u/image/upload/v1792510184/Taco_salad_zm5gms.jpg",
+                "https://res.cloudinary.com/dzklt0a5u/image/upload/v1792510185/Alacarte_burrito_zcuvf1.jpg",
+                "https://res.cloudinary.com/dzklt0a5u/image/upload/v1792510186/Burrito_California_cicif2.jpg",
+                "https://res.cloudinary.com/dzklt0a5u/image/upload/v1792510187/Burrito_Zarape_hrepae.jpg",
+                "https://res.cloudinary.com/dzklt0a5u/image/upload/v1792510187/Carnitas_ff1rvk.jpg",
+                "https://res.cloudinary.com/dzklt0a5u/image/upload/v1792510188/Burritos_delux_ke5ugb.jpg",
+                "https://res.cloudinary.com/dzklt0a5u/image/upload/v1792510189/Chori_pollo_whtb5h.jpg",
+                "https://res.cloudinary.com/dzklt0a5u/image/upload/v1792510189/Combination_11_m3bxer.jpg",
+                "https://res.cloudinary.com/dzklt0a5u/image/upload/v1792510190/Small_tortilla_soup_wahu91.jpg",
+                "https://res.cloudinary.com/dzklt0a5u/image/upload/v1792510190/Combination_15_l40ceh.jpg",
+                "https://res.cloudinary.com/dzklt0a5u/image/upload/v1792510191/Fish_tacos_jterow.jpg",
+                "https://res.cloudinary.com/dzklt0a5u/image/upload/v1792510191/Kids_2_yqqwbu.jpg",
+                "https://res.cloudinary.com/dzklt0a5u/image/upload/v1792510192/Kids_5_qb7c0z.jpg",
+                "https://res.cloudinary.com/dzklt0a5u/image/upload/v1792510192/Quesadillas_de_chorizo_vhhk4w.jpg",
+                "https://res.cloudinary.com/dzklt0a5u/image/upload/v1792510193/Steak_Ranchero_cnx7uq.jpg",
+                "https://res.cloudinary.com/dzklt0a5u/image/upload/v1792510194/Soft_beef_tacos_y0is9e.jpg",
+                "https://res.cloudinary.com/dzklt0a5u/image/upload/v1792510194/Zarape_Green_Burrito_n6nxx3.jpg",
+                "https://res.cloudinary.com/dzklt0a5u/image/upload/v1792510195/Combination_16_rauupm.jpg",
+                "https://res.cloudinary.com/dzklt0a5u/image/upload/v1792510195/Combination_18_tfmhmr.jpg",
+                "https://res.cloudinary.com/dzklt0a5u/image/upload/v1792510196/Combination_25_fqb9wl.jpg",
+                "https://res.cloudinary.com/dzklt0a5u/image/upload/v1792510196/FAJITA_FOR_2_biq2ak.jpg",
+                "https://res.cloudinary.com/dzklt0a5u/image/upload/v1792510197/Fajita_Zarape_hchetn.jpg",
+                "https://res.cloudinary.com/dzklt0a5u/image/upload/v1792510197/Fish_fillet_f3ej3c.jpg",
+                "https://res.cloudinary.com/dzklt0a5u/image/upload/v1792510198/zarape_iqb4vw.jpg",
+                "https://res.cloudinary.com/dzklt0a5u/image/upload/v1792510198/Tacos_Zarape_eggrzw.jpg",
+                "https://res.cloudinary.com/dzklt0a5u/image/upload/v1792510199/Street_tacos_erkrww.jpg",
+                "https://res.cloudinary.com/dzklt0a5u/image/upload/v1792510199/Chimichangas_qxcvqx.jpg",
+                "https://res.cloudinary.com/dzklt0a5u/image/upload/v1792510200/Chicken_Salad_d0imw5.jpg",
+                "https://res.cloudinary.com/dzklt0a5u/image/upload/v1792510200/2023-06-08_2_prhdww.jpg",
+                "https://res.cloudinary.com/dzklt0a5u/image/upload/v1792510201/2023-06-08_1_cwwlxd.jpg",
+                "https://res.cloudinary.com/dzklt0a5u/image/upload/v1792510202/2023-02-11_l3pcj5.jpg"
+            ],
+            "heroImg":"https://res.cloudinary.com/dzklt0a5u/image/upload/v1792510153/Gemini_Generated_Image_2pdfzx2pdfzx2pdf_x14bl9.jpg",
+            "logoImg":"https://res.cloudinary.com/dzklt0a5u/image/upload/v1792510028/LOGOMIZARAPE_dq4lfl.png",
+            "socials":[
+                {"url":"https://www.facebook.com/mizarape2","platform":"facebook"}
+            ],
+            "showInfo":true,
+            "aboutImg1":"https://res.cloudinary.com/dzklt0a5u/image/upload/v1792510164/Street_tacos_of9jcz.jpg",
+            "aboutImg2":"https://res.cloudinary.com/dzklt0a5u/image/upload/v1792510168/Quesadillas_de_chorizo_dzyj1r.jpg",
+            "showAbout":true,
+            "showGallery":true,
+            "paragraphs":{
+                "about":"At Mi Zarape, we take pride in bringing our guests vibrant and authentic Mexican cuisine, crafted with care and rich culinary tradition. Every dish we serve is full of bold flavors and prepared to deliver a memorable dining experience. We are confident you will leave satisfied.\n\nThe secret to our success is simple: creating exceptional meals using fresh, high-quality ingredients that capture the true essence of Mexican cooking in every bite.\n\nOur mission is to help you savor the moments that truly matter. Enjoy great food. Sip on a refreshing drink. And above all, unwind and feel at home. We sincerely appreciate your continued support and trust"
+            },
+            "heroAddress":"7025 E Michigan Ave, Saline, MI, 48176, United States"
+        };
+
+        // Full Translation Dictionary for Bilingual Switching
+        const TRANSLATIONS = {
+            "Home": {"en": "Home", "es": "Inicio"},
+            "About Us": {"en": "About Us", "es": "Sobre Nosotros"},
+            "Gallery": {"en": "Gallery", "es": "Galería"},
+            "Contact Us": {"en": "Contact Us", "es": "Contacto"},
+            "Order Online": {"en": "Order Online", "es": "Pedir en Línea"},
+            "Authentic Mexican Cuisine": {"en": "Authentic Mexican Cuisine", "es": "Auténtica Cocina Mexicana"},
+            "Welcome to Mi Zarape": {"en": "Welcome to Mi Zarape", "es": "Bienvenidos a Mi Zarape"},
+            "Taste the true tradition of Mexico in every bite. Prepared daily with fresh ingredients.": {"en": "Taste the true tradition of Mexico in every bite. Prepared daily with fresh ingredients.", "es": "Sabor tradicional de México en cada bocado. Preparado diariamente con ingredientes frescos."},
+            "We are Mi Zarape": {"en": "We are Mi Zarape", "es": "Somos Mi Zarape"},
+            "Our Culinary Heritage": {"en": "Our Culinary Heritage", "es": "Nuestra Herencia Culinaria"},
+            "Love At First Bite": {"en": "Love At First Bite", "es": "Amor al Primer Bocado"},
+            "Delicious Mexican Food": {"en": "Delicious Mexican Food", "es": "Deliciosa Comida Mexicana"},
+            "Visit Us": {"en": "Visit Us", "es": "Visítanos"},
+            "Information": {"en": "Information", "es": "Información"},
+            "Opening Hours": {"en": "Opening Hours", "es": "Horarios de Atención"},
+            "Phone": {"en": "Phone", "es": "Teléfono"},
+            "Address": {"en": "Address", "es": "Dirección"},
+            "Authentic Mexican Flavor": {"en": "Authentic Mexican Flavor", "es": "Auténtico Sabor Mexicano"},
+            "At Mi Zarape, we take pride in bringing our guests vibrant and authentic Mexican cuisine, crafted with care and rich culinary tradition. Every dish we serve is full of bold flavors and prepared to deliver a memorable dining experience. We are confident you will leave satisfied.": {
+                "en": "At Mi Zarape, we take pride in bringing our guests vibrant and authentic Mexican cuisine, crafted with care and rich culinary tradition. Every dish we serve is full of bold flavors and prepared to deliver a memorable dining experience. We are confident you will leave satisfied.",
+                "es": "En Mi Zarape, nos enorgullecemos de ofrecer a nuestros comensales una cocina mexicana vibrante y auténtica, elaborada con esmero y una rica tradición culinaria. Cada platillo está lleno de sabores audaces para brindar una experiencia inolvidable."
+            },
+            "The secret to our success is simple: creating exceptional meals using fresh, high-quality ingredients that capture the true essence of Mexican cooking in every bite.": {
+                "en": "The secret to our success is simple: creating exceptional meals using fresh, high-quality ingredients that capture the true essence of Mexican cooking in every bite.",
+                "es": "El secreto de nuestro éxito es simple: crear platillos excepcionales utilizando ingredientes frescos y de alta calidad que capturan la verdadera esencia de la cocina mexicana."
+            },
+            "Our mission is to help you savor the moments that truly matter. Enjoy great food. Sip on a refreshing drink. And above all, unwind and feel at home. We sincerely appreciate your continued support and trust": {
+                "en": "Our mission is to help you savor the moments that truly matter. Enjoy great food. Sip on a refreshing drink. And above all, unwind and feel at home. We sincerely appreciate your continued support and trust",
+                "es": "Nuestra misión es ayudarle a disfrutar los momentos que realmente importan. Disfrute de excelente comida, una bebida refrescante y siéntase como en casa."
+            }
+        };
+    </script>
+</head>
+<body class="bg-pattern">
+    <div class="top-artisan-ribbon"></div>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar" id="main-navbar">
+        <div class="container nav-container">
+            <a href="#" class="navbar-brand">
+                <img src="https://res.cloudinary.com/dzklt0a5u/image/upload/f_auto,q_auto:eco,dpr_auto,w_250/v1792510028/LOGOMIZARAPE_dq4lfl.png" alt="Mi Zarape Logo" id="nav-logo">
+                <span id="nav-brand" data-i18n="Mi Zarape">Mi Zarape</span>
+            </a>
+
+            <button class="navbar-toggler" id="navbar-toggler" aria-label="Toggle Navigation">
+                <span class="toggler-icon"></span>
+                <span class="toggler-icon"></span>
+                <span class="toggler-icon"></span>
+            </button>
+
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#" class="nav-link active" data-i18n="Home">Home</a></li>
+                <li><a href="#about-section" class="nav-link" data-i18n="About Us">About Us</a></li>
+                <li><a href="#gallery-section" class="nav-link" data-i18n="Gallery">Gallery</a></li>
+                <li><a href="#info-section" class="nav-link" data-i18n="Contact Us">Contact Us</a></li>
+                <li>
+                    <div class="lang-switch">
+                        <button class="lang-btn" id="btn-lang-es" onclick="switchLanguage('es')">ES</button>
+                        <button class="lang-btn active" id="btn-lang-en" onclick="switchLanguage('en')">EN</button>
+                    </div>
+                </li>
+                <li>
+                    <a href="https://www.restaurantlogin.com/ordering/restaurant/menu?restaurant_uid=98337077-efa1-4ab0-907c-158f741b4a94" target="_blank" class="nav-cta-btn" data-i18n="Order Online">Order Online</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Header -->
+    <header class="hero" id="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    <span data-i18n="Authentic Mexican Cuisine">Authentic Mexican Cuisine</span>
+                </div>
+                
+                <div class="hero-logo-wrapper">
+                    <img src="https://res.cloudinary.com/dzklt0a5u/image/upload/f_auto,q_auto:eco,dpr_auto,w_250/v1792510028/LOGOMIZARAPE_dq4lfl.png" alt="Mi Zarape Emblem" class="hero-logo" id="hero-logo">
+                </div>
+
+                <h1 class="hero-title" id="hero-title" data-i18n="Welcome to Mi Zarape">Welcome to Mi Zarape</h1>
+                <p class="hero-subtitle" id="hero-subtitle" data-i18n="Taste the true tradition of Mexico in every bite. Prepared daily with fresh ingredients.">Taste the true tradition of Mexico in every bite. Prepared daily with fresh ingredients.</p>
+
+                <div class="hero-actions">
+                    <a href="https://www.restaurantlogin.com/ordering/restaurant/menu?restaurant_uid=98337077-efa1-4ab0-907c-158f741b4a94" target="_blank" class="btn-primary" data-i18n="Order Online">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+                        Order Online
+                    </a>
+                    <a href="#about-section" class="btn-secondary" data-i18n="About Us">Discover Our Story</a>
+                </div>
+
+                <!-- Hidden Menutech Engine Attachments to Maintain Underlying Logic -->
+                <div class="menutech-engine-wrapper">
+                    <script src="https://www.fbgcdn.com/embedder/js/ewm2.js"></script>
+                    <script src="https://menutech.xyz/menutechUI.min.js"></script>
+                    <menutech-orders id="hero-orders" cuid="#" ruid="#" background="#f2a04a" color="#ffffff" data-glf-cuid="#" data-glf-ruid="#"></menutech-orders>
+                    <div id="hero-reservations-wrapper">
+                        <menutech-reservations id="hero-reservations" cuid="#" ruid="#" background="#2f4854" color="#ffffff" data-glf-cuid="#" data-glf-ruid="#" data-glf-reservation="true"></menutech-reservations>
+                    </div>
+                </div>
+
+                <div class="hero-address-bar">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span id="hero-address">7025 E Michigan Ave, Saline, MI, 48176, United States</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section class="section-padding about-section" id="about-section">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-card">
+                    <span class="section-tag" id="about-subtitle" data-i18n="Our Culinary Heritage">Our Culinary Heritage</span>
+                    <h2 class="section-title" id="about-title" style="margin-bottom: 24px;" data-i18n="We are Mi Zarape">We are Mi Zarape</h2>
+                    
+                    <p id="about-p1" data-i18n="At Mi Zarape, we take pride in bringing our guests vibrant and authentic Mexican cuisine, crafted with care and rich culinary tradition. Every dish we serve is full of bold flavors and prepared to deliver a memorable dining experience. We are confident you will leave satisfied.">At Mi Zarape, we take pride in bringing our guests vibrant and authentic Mexican cuisine, crafted with care and rich culinary tradition. Every dish we serve is full of bold flavors and prepared to deliver a memorable dining experience. We are confident you will leave satisfied.</p>
+                    <p id="about-p2" data-i18n="The secret to our success is simple: creating exceptional meals using fresh, high-quality ingredients that capture the true essence of Mexican cooking in every bite.">The secret to our success is simple: creating exceptional meals using fresh, high-quality ingredients that capture the true essence of Mexican cooking in every bite.</p>
+                    <p id="about-p3" data-i18n="Our mission is to help you savor the moments that truly matter. Enjoy great food. Sip on a refreshing drink. And above all, unwind and feel at home. We sincerely appreciate your continued support and trust">Our mission is to help you savor the moments that truly matter. Enjoy great food. Sip on a refreshing drink. And above all, unwind and feel at home. We sincerely appreciate your continued support and trust</p>
+                </div>
+
+                <div class="about-media-wrapper">
+                    <div class="about-img-stagger">
+                        <img id="about-img-1" src="https://res.cloudinary.com/dzklt0a5u/image/upload/v1792510164/Street_tacos_of9jcz.jpg" alt="Authentic Mexican Street Tacos" class="about-img-1" loading="lazy">
+                        <img id="about-img-2" src="https://res.cloudinary.com/dzklt0a5u/image/upload/v1792510168/Quesadillas_de_chorizo_dzyj1r.jpg" alt="Chorizo Quesadillas" class="about-img-2" loading="lazy">
+                    </div>
+                    <div class="about-badge-floating">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+                        <div>
+                            <strong style="display:block; font-size:16px;">100% Authentic</strong>
+                            <span style="font-size:13px; opacity:0.9;">Traditional Recipes</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section (Full 31 Images Masonry Display) -->
+    <section class="section-padding gallery-section" id="gallery-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag" id="gallery-subtitle" data-i18n="Love At First Bite">Love At First Bite</span>
+                <h2 class="section-title" id="gallery-title" data-i18n="Delicious Mexican Food">Delicious Mexican Food</h2>
+            </div>
+
+            <div class="gallery-masonry" id="gallery-container">
+                <!-- Javascript will inject ALL 31 images dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Info Section -->
+    <section class="section-padding info-section" id="info-section">
+        <div class="container">
+            <div class="info-card-container">
+                <div class="section-header" style="margin-bottom: 48px;">
+                    <span class="section-tag" id="info-subtitle" data-i18n="Visit Us">Visit Us</span>
+                    <h2 class="section-title" id="info-title" data-i18n="Information">Information</h2>
+                </div>
+
+                <div class="info-grid">
+                    <div class="info-box">
+                        <div class="info-icon-wrapper">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        </div>
+                        <h3 data-i18n="Opening Hours">Opening Hours</h3>
+                        <p id="info-hours">Monday – Thursday: 11:00 AM – 10:00 PM<br>Friday – Saturday: 11:00 AM – 10:30 PM<br>Sunday: 11:00 AM – 9:30 PM</p>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="info-icon-wrapper">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+                        </div>
+                        <h3 data-i18n="Phone">Phone</h3>
+                        <p id="info-phone">734-470-6638</p>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="info-icon-wrapper">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        </div>
+                        <h3 data-i18n="Address">Address</h3>
+                        <p id="info-address">7025 E Michigan Ave, Saline, MI, 48176, United States</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand-col">
+                    <!-- NATURAL LOGO WITHOUT ANY FILTERS / EFFECTS -->
+                    <img src="https://res.cloudinary.com/dzklt0a5u/image/upload/f_auto,q_auto:eco,dpr_auto,w_250/v1792510028/LOGOMIZARAPE_dq4lfl.png" alt="Mi Zarape Logo" id="footer-logo">
+                    <p data-i18n="Taste the true tradition of Mexico in every bite. Prepared daily with fresh ingredients.">Taste the true tradition of Mexico in every bite. Prepared daily with fresh ingredients.</p>
+                </div>
+
+                <div>
+                    <h4 class="footer-title" data-i18n="Contact Us">Contact Us</h4>
+                    <p class="footer-info-text" id="footer-address">7025 E Michigan Ave, Saline, MI, 48176, United States</p>
+                    <p class="footer-info-text" id="footer-phone" style="margin-top: 8px;">Phone: 734-470-6638</p>
+
+                    <div class="social-links" id="social-icons">
+                        <!-- Dynamically populated -->
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="footer-title" data-i18n="Opening Hours">Opening Hours</h4>
+                    <p class="footer-info-text" id="footer-hours">Monday – Thursday: 11:00 AM – 10:00 PM<br>Friday – Saturday: 11:00 AM – 10:30 PM<br>Sunday: 11:00 AM – 9:30 PM</p>
+                </div>
+            </div>
+
+            <!-- MANDATORY AUTOMATIC MENUTECH COPYRIGHT SCRIPT & DISPLAY -->
+            <div class="footer-bottom">
+                © 2015-<span id="copyright-year"></span> Powered by <a href="https://menutech.xyz" target="_blank" rel="noopener">Menutech</a>. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Logic Engine & Event Handlers -->
+    <script>
+        // Automatic Year Calculation for Menutech
+        document.addEventListener('DOMContentLoaded', () => {
+            const yearSpan = document.getElementById('copyright-year');
+            if (yearSpan) {
+                yearSpan.textContent = new Date().getFullYear();
+            }
+        });
+
+        // Cloudinary URL Optimizer
+        const optimizeCloudinaryUrl = (url, options = {}) => {
+            if (!url || typeof url !== 'string' || !url.includes('res.cloudinary.com')) return url;
+            const [baseUrl, hash] = url.split('#');
+            if (!baseUrl.includes('/upload/')) return url;
+            const parts = baseUrl.split('/upload/');
+
+            let pathSegments = parts[1].split('/');
+            if (pathSegments.length > 1) {
+                const firstSegment = pathSegments[0];
+                const isVersion = /^v\d+$/.test(firstSegment);
+                const isTransformation = !isVersion && (firstSegment.includes('_') || firstSegment.includes(','));
+                if (isTransformation) pathSegments.shift();
+            }
+            const cleanPath = pathSegments.join('/');
+
+            let transformations = ['f_auto', 'q_auto:eco', 'dpr_auto'];
+            if (options.width) transformations.push(`w_${options.width}`);
+            if (options.height) transformations.push(`h_${options.height}`);
+            if (options.crop) transformations.push(`c_${options.crop}`);
+
+            const optimizedUrl = `${parts[0]}/upload/${transformations.join(',')}/${cleanPath}`;
+            return hash ? `${optimizedUrl}#${hash}` : optimizedUrl;
+        };
+
+        const SOCIAL_SVG = {
+            facebook: `<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.85C10.44 7.34 11.93 5.96 14.22 5.96C15.31 5.96 16.45 6.15 16.45 6.15V8.62H15.19C13.95 8.62 13.56 9.39 13.56 10.18V12.06H16.34L15.89 14.96H13.56V21.96A10 10 0 0 0 22 12.06C22 6.53 17.5 2.04 12 2.04Z"/></svg>`,
+            instagram: `<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>`,
+            tiktok: `<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>`
+        };
+
+        let currentLang = 'en';
+
+        function switchLanguage(lang) {
+            currentLang = lang;
+
+            // Toggle language buttons
+            const btnEs = document.getElementById('btn-lang-es');
+            const btnEn = document.getElementById('btn-lang-en');
+            if (lang === 'es') {
+                btnEs.classList.add('active');
+                btnEn.classList.remove('active');
+            } else {
+                btnEn.classList.add('active');
+                btnEs.classList.remove('active');
+            }
+
+            // Translate elements
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (TRANSLATIONS[key] && TRANSLATIONS[key][lang]) {
+                    if (el.tagName === 'P' && TRANSLATIONS[key][lang].includes('<br>')) {
+                        el.innerHTML = TRANSLATIONS[key][lang];
+                    } else {
+                        el.textContent = TRANSLATIONS[key][lang];
+                    }
+                }
+            });
+        }
+
+        // Clean image filename title extractor for gallery overlays
+        function formatImageCaption(url) {
+            try {
+                const fileName = url.substring(url.lastIndexOf('/') + 1).split('.')[0];
+                const cleanName = fileName.replace(/_[a-z0-9]+$/i, '').replace(/_/g, ' ');
+                return cleanName.charAt(0).toUpperCase() + cleanName.slice(1);
+            } catch(e) {
+                return "Mi Zarape Specialty";
+            }
+        }
+
+        function renderUI(data) {
+            if (!data) return;
+
+            // Title & Brand Name
+            if (data.title) {
+                const b = document.getElementById('nav-brand');
+                if (b) b.textContent = data.title;
+            }
+
+            // Logos (ENSURE FOOTER LOGO HAS NO FILTER EFFECT)
+            if (data.logoImg) {
+                const optLogo = optimizeCloudinaryUrl(data.logoImg, { width: 300 });
+                const navL = document.getElementById('nav-logo');
+                const heroL = document.getElementById('hero-logo');
+                const footerL = document.getElementById('footer-logo');
+
+                if (navL) navL.src = optLogo;
+                if (heroL) heroL.src = optLogo;
+                if (footerL) {
+                    footerL.src = optLogo;
+                    footerL.style.filter = "none";
+                }
+            }
+
+            // Hero Image Background
+            if (data.heroImg) {
+                const hero = document.getElementById('hero-section');
+                if (hero) hero.style.backgroundImage = `url('${optimizeCloudinaryUrl(data.heroImg, { width: 1600 })}')`;
+            }
+
+            // About Images Stagger
+            if (data.aboutImg1) {
+                const a1 = document.getElementById('about-img-1');
+                if (a1) a1.src = optimizeCloudinaryUrl(data.aboutImg1, { width: 700 });
+            }
+            if (data.aboutImg2) {
+                const a2 = document.getElementById('about-img-2');
+                if (a2) a2.src = optimizeCloudinaryUrl(data.aboutImg2, { width: 700 });
+            }
+
+            // Address & Hours Synchronizer
+            if (data.info) {
+                const addressText = data.info.address || '';
+                const phoneText = data.info.phone || '';
+                const hoursText = (data.info.hours || '').replace(/\n/g, '<br>');
+
+                const heroAddr = document.getElementById('hero-address');
+                const infoAddr = document.getElementById('info-address');
+                const footAddr = document.getElementById('footer-address');
+                if (heroAddr) heroAddr.textContent = addressText;
+                if (infoAddr) infoAddr.textContent = addressText;
+                if (footAddr) footAddr.textContent = addressText;
+
+                const infoPhone = document.getElementById('info-phone');
+                const footPhone = document.getElementById('footer-phone');
+                if (infoPhone) infoPhone.textContent = phoneText;
+                if (footPhone) footPhone.textContent = 'Phone: ' + phoneText;
+
+                const infoHours = document.getElementById('info-hours');
+                const footHours = document.getElementById('footer-hours');
+                if (infoHours) infoHours.innerHTML = hoursText;
+                if (footHours) footHours.innerHTML = hoursText;
+            }
+
+            // RENDER ALL 31 GALLERY IMAGES (RESTORED COMPLETE GALLERY)
+            if (data.gallery && Array.isArray(data.gallery)) {
+                const galContainer = document.getElementById('gallery-container');
+                if (galContainer) {
+                    galContainer.innerHTML = data.gallery.map(imgUrl => `
+                        <div class="gallery-item">
+                            <img src="${optimizeCloudinaryUrl(imgUrl, { width: 600 })}" loading="lazy" alt="Mi Zarape Dish">
+                            <div class="gallery-overlay">
+                                <span class="gallery-caption">${formatImageCaption(imgUrl)}</span>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            }
+
+            // Social Networks
+            if (data.socials && Array.isArray(data.socials)) {
+                const socContainer = document.getElementById('social-icons');
+                if (socContainer) {
+                    socContainer.innerHTML = data.socials.map(s => {
+                        let plat = s.platform.toLowerCase();
+                        if (s.url.includes('tiktok')) plat = 'tiktok';
+                        return `
+                            <a href="${s.url}" target="_blank" rel="noopener" class="social-icon-btn" aria-label="${plat}">
+                                ${SOCIAL_SVG[plat] || SOCIAL_SVG.facebook}
+                            </a>
+                        `;
+                    }).join('');
+                }
+            }
+
+            // Apply selected language
+            if (data.lang) switchLanguage(data.lang);
+        }
+
+        // Initialize Page
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.MENU_TECH_STATE) {
+                renderUI(window.MENU_TECH_STATE);
+            }
+
+            // Mobile Nav Toggle
+            const toggler = document.getElementById('navbar-toggler');
+            const navMenu = document.getElementById('nav-menu');
+            if (toggler && navMenu) {
+                toggler.addEventListener('click', () => {
+                    navMenu.classList.toggle('active');
+                });
+            }
+
+            // Navbar Scroll Effect
+            const nav = id = document.getElementById('main-navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+            });
+        });
+
+        // Listen for live updates from Menutech Editor
+        window.addEventListener('message', (event) => {
+            if (event.data && event.data.type === 'UPDATE_CONTENT') {
+                renderUI(event.data.data);
+            }
+        });
+    </script>
+</body>
+</html>
