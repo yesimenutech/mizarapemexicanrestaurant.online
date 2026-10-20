@@ -1250,32 +1250,27 @@
                 if (footHours) footHours.innerHTML = hoursText;
             }
            
+            
  // RENDER ALL 31 GALLERY IMAGES (RESTORED COMPLETE GALLERY)
             if (data.gallery && Array.isArray(data.gallery)) {
                 const galContainer = document.getElementById('gallery-container');
                 if (galContainer) {
-                    galContainer.innerHTML = data.gallery.map(imgUrl => {
-                        const isHouseFavorite = [
-                            '2023-06-08_2_prhdww.jpg',
-                            '2023-06-08_1_cwwlxd.jpg',
-                            '2023-02-11_l3pcj5.jpg'
-                        ].some(filename => imgUrl.includes(filename));
-
-                        const caption = isHouseFavorite
-                            ? (currentLanguage === 'es'
-                                ? 'Los favoritos de la casa'
-                                : 'House Favorites')
-                            : formatImageCaption(imgUrl);
-
-                        return `
-                            <div class="gallery-item">
-                                <img src="${optimizeCloudinaryUrl(imgUrl, { width: 600 })}" loading="lazy" alt="${isHouseFavorite ? (currentLanguage === 'es' ? 'Los favoritos de la casa' : 'House Favorites') : 'Mi Zarape Dish'}">
-                                <div class="gallery-overlay">
-                                    <span class="gallery-caption">${caption}</span>
-                                </div>
+                    galContainer.innerHTML = data.gallery.map(imgUrl => `
+                        <div class="gallery-item">
+                            <img src="${optimizeCloudinaryUrl(imgUrl, { width: 600 })}" loading="lazy" alt="Mi Zarape Dish">
+                            <div class="gallery-overlay">
+                                <span class="gallery-caption">${
+                                    [
+                                        '2023-06-08_2_prhdww.jpg',
+                                        '2023-06-08_1_cwwlxd.jpg',
+                                        '2023-02-11_l3pcj5.jpg'
+                                    ].some(filename => imgUrl.includes(filename))
+                                        ? (currentLanguage === 'es' ? 'Los favoritos de la casa' : 'House Favorites')
+                                        : formatImageCaption(imgUrl)
+                                }</span>
                             </div>
-                        `;
-                    }).join('');
+                        </div>
+                    `).join('');
                 }
             }
 
