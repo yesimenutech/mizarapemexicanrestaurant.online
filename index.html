@@ -1182,14 +1182,25 @@
 
     // Extractor de títulos de archivo de imagen
     function formatImageCaption(url) {
-        try {
-            const fileName = url.substring(url.lastIndexOf('/') + 1).split('.')[0];
-            const cleanName = fileName.replace(/_[a-z0-9]+\$/i, '').replace(/_/g, ' ');
-            return cleanName.charAt(0).toUpperCase() + cleanName.slice(1);
-        } catch(e) {
-            return "Mi Zarape Specialty";
-        }
+    try {
+        // 1. Obtener el nombre del archivo sin rutas ni extensiones
+        const urlPath = url.split('#')[0].split('?')[0];
+        let fileName = urlPath.substring(urlPath.lastIndexOf('/') + 1).split('.')[0];
+
+        // 2. Remover el hash aleatorio de Cloudinary al final (ej: _yqqwbu, _d0imw5, _zm5gms)
+        fileName = fileName.replace(/_[a-z0-9]{5,8}$/i, '');
+
+        // 3. Reemplazar guiones bajos por espacios
+        const cleanName = fileName.replace(/_/g, ' ');
+
+        // 4. Capitalizar la primera letra de cada palabra (Title Case)
+        return cleanName.replace(/\w\S*/g, txt => 
+            txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+        );
+    } catch(e) {
+        return "Mi Zarape Specialty";
     }
+}
 
     function renderUI(data) {
         if (!data) return;
